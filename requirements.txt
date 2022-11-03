@@ -1,0 +1,4 @@
+Flask==2.2.2
+flatdict==4.0.1
+python-dotenv==0.21.0
+slack_sdk==3.19.2
