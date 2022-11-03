@@ -2,6 +2,7 @@ import csv
 import flatdict
 import os
 from dotenv import load_dotenv, find_dotenv
+from typing import List
 
 from base_message import BaseMessage
 
@@ -37,7 +38,7 @@ class ConsultMessage(BaseMessage):
 
         return unhandled_messages
 
-    def generate_csv(self, consult_messages: list[dict], file_name: str):
+    def generate_csv(self, consult_messages: List[dict], file_name: str):
         load_dotenv(find_dotenv())
 
         domain = os.environ["DOMAIN"]

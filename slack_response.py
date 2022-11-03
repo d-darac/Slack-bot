@@ -1,4 +1,5 @@
 from slack_config import slack_client
+from typing import List
 
 
 class SlackResponse:
@@ -42,9 +43,9 @@ class SlackResponse:
             blocks=self._message_blocks,
         )
 
-    def get_message_blocks(self) -> dict[str, list[dict]]:
+    def get_message_blocks(self) -> dict[str, List[dict]]:
         return {"blocks": self._message_blocks}
 
-    def set_custom_message_blocks(self, blocks: list[dict]) -> None:
+    def set_custom_message_blocks(self, blocks: List[dict]) -> None:
         for block in blocks:
             self._message_blocks.append(block)
