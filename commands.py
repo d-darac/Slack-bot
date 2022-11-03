@@ -3,6 +3,7 @@ import time
 import logging
 import os
 import json
+from typing import List, Dict
 
 from slack_config import slack_client
 from consult_message import ConsultMessage
@@ -11,7 +12,7 @@ from slack_response import SlackResponse
 
 
 def run_confing_command(
-    command: dict,
+    command: Dict,
     slack_user_id: str,
     slack_channel_id: str,
 ) -> None:
@@ -25,9 +26,9 @@ def run_confing_command(
 
 
 def run_report_command(
-    command: dict,
+    command: Dict,
     slack_user_id: str,
-    config: dict,
+    config: Dict,
 ) -> None:
     kwargs = {
         "command": command,
@@ -39,7 +40,7 @@ def run_report_command(
 
 
 def _report_command_background_task(
-    command: dict, slack_user_id: str, config: dict
+    command: Dict, slack_user_id: str, config: Dict
 ) -> None:
     try:
         if command["name"] == "formats":
@@ -272,7 +273,7 @@ def _config_command_background_task(
             new_file.close()
 
         with open(f"channels/{slack_channel_id}/config.json", "r") as config_file:
-            config_as_dict: dict[str, list | str | dict] = json.load(config_file)
+            config_as_dict: Dict = json.load(config_file)
 
         if command["name"] == "get":
             response = SlackResponse(

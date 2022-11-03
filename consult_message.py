@@ -2,16 +2,16 @@ import csv
 import flatdict
 import os
 from dotenv import load_dotenv, find_dotenv
-from typing import List
+from typing import List, Dict
 
 from base_message import BaseMessage
 
 
 class ConsultMessage(BaseMessage):
-    def all_messages(self) -> list:
+    def all_messages(self) -> List:
         return self._channel_messages
 
-    def messages_with_ping_word(self) -> list:
+    def messages_with_ping_word(self) -> List:
         messages_with_ping_word = []
 
         for message in self._channel_messages:
@@ -20,7 +20,7 @@ class ConsultMessage(BaseMessage):
 
         return messages_with_ping_word
 
-    def handled_messages(self) -> list:
+    def handled_messages(self) -> List:
         handled_messages = []
 
         for message in self._channel_messages:
@@ -29,7 +29,7 @@ class ConsultMessage(BaseMessage):
 
         return handled_messages
 
-    def unhandled_messages(self) -> list:
+    def unhandled_messages(self) -> List:
         unhandled_messages = []
 
         for message in self._channel_messages:
@@ -38,7 +38,7 @@ class ConsultMessage(BaseMessage):
 
         return unhandled_messages
 
-    def generate_csv(self, consult_messages: List[dict], file_name: str):
+    def generate_csv(self, consult_messages: List[Dict], file_name: str):
         load_dotenv(find_dotenv())
 
         domain = os.environ["DOMAIN"]

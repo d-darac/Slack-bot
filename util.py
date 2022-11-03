@@ -2,9 +2,9 @@ from urllib.parse import parse_qs
 import re
 import os
 import json
+from typing import List, Dict
 
-
-def serialize_to_dict(data_bytes: bytes) -> dict:
+def serialize_to_dict(data_bytes: bytes) -> Dict:
     data_str = str(data_bytes, "utf-8")
 
     formatted_data_dict = parse_qs(data_str)
@@ -24,14 +24,14 @@ def find_keyword(word: str):
     return re.compile(r"\b({0})\b".format(word), flags=re.IGNORECASE).search
 
 
-def check_config(slack_channel_id: str) -> dict:
+def check_config(slack_channel_id: str) -> Dict:
     res = {"is_config_file": False, "data": {}, "empty_keys": []}
 
     if not os.path.isdir(f"./channels/{slack_channel_id}"):
         return res
 
     with open(f"./channels/{slack_channel_id}/config.json", "r") as file:
-        config: dict = json.load(file)
+        config: Dict = json.load(file)
 
     empty_keys = []
 
@@ -52,7 +52,7 @@ def check_config(slack_channel_id: str) -> dict:
         return res
 
 
-def extract_dates_from_string(string: str) -> list:
+def extract_dates_from_string(string: str) -> List:
     if ("from" in string) and ("to" in string):
         date_time_list = []
         dates = string.split("from")[1].split("to")
@@ -129,7 +129,7 @@ def extract_dates_from_string(string: str) -> list:
         raise ValueError("Invalid date value.")
 
 
-def get_config_command(string: str) -> dict:
+def get_config_command(string: str) -> Dict:
     if find_keyword("help")(string):
         return {"name": "help", "args": None}
 
@@ -221,7 +221,7 @@ def get_config_command(string: str) -> dict:
         raise ValueError("Invalid command.")
 
 
-def get_consult_command(string: str) -> dict:
+def get_consult_command(string: str) -> Dict:
     if find_keyword("formats")(string):
         return {"name": "formats"}
 

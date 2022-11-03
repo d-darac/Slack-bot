@@ -2,6 +2,7 @@ import logging
 from datetime import datetime
 import os
 from dotenv import load_dotenv, find_dotenv
+from typing import Dict
 
 from slack_config import slack_client, slack_errors
 from slack_response import SlackResponse
@@ -12,7 +13,7 @@ logging.basicConfig(level=logging.INFO)
 class BaseMessage:
     def __init__(
         self,
-        config: dict,
+        config: Dict,
         oldest_date: str,
         latest_date: str,
         utc_offset: str,
@@ -103,8 +104,8 @@ class BaseMessage:
             response.send()
 
     def _convert_slack_message_to_consult_message(
-        self, slack_message: dict, config: dict, utc_offset: str
-    ) -> dict:
+        self, slack_message: Dict, config: Dict, utc_offset: str
+    ) -> Dict:
         tz_info = datetime.strptime(utc_offset, "%z").tzinfo
 
         load_dotenv(find_dotenv())
