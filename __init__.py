@@ -229,4 +229,4 @@ def get_report(channel_id, report_name):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=os.environ["PORT"])
+    app.run()
